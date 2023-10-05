@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:noteapprelem/src/noteFeature/model/note_model.dart';
 import 'package:realm/realm.dart';
@@ -6,8 +8,17 @@ import 'package:realm/realm.dart';
 class NoteListProvider with ChangeNotifier {
   final RealmResults<NoteModel> items;
   final Realm _realm;
+  late StreamSubscription _subscription;
 
-  NoteListProvider(this.items) : _realm = items.realm;
+  NoteListProvider(this.items) : _realm = items.realm {
+    _subscription = items.changes.listen((changes) {
+      print("changes deteced");
+      _realm.refresh();
+      notifyListeners();
+
+      
+    });
+  }
 
   Realm get realm => _realm;
 
@@ -18,6 +29,13 @@ class NoteListProvider with ChangeNotifier {
 
       notifyListeners(); // Notify the listeners about the change.
     });
+  }
+
+  @override
+  void dispose() {
+    // Important: Always cancel the subscription when it's no longer used to free up resources
+    _subscription.cancel();
+    super.dispose();
   }
 }
 

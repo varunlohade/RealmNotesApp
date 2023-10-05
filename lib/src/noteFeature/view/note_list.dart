@@ -37,56 +37,58 @@ class _NoteItemListState extends State<NoteItemList> {
     final noteListProvider =
         Provider.of<NoteListProvider>(context, listen: true);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Notes: Flexible sync"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: NotesSearch(noteListProvider.realm),
+    return Consumer<NoteListProvider>(builder: (context, notesProvider, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Notes: Flexible sync"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: NotesSearch(noteListProvider.realm),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                Navigator.restorablePushNamed(context, SettingsView.routeName);
+              },
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            openSheetNotes(context, noteListProvider);
+          },
+          child: const Icon(Icons.add),
+        ),
+        body: Consumer<NoteListProvider>(
+            builder: (context, noteListProvider, child) {
+          return ListView.builder(
+            itemCount: noteListProvider.items.length,
+            itemBuilder: (BuildContext context, int index) {
+              final item = noteListProvider.items[index];
+              if (!item.isValid) {
+                return const SizedBox.shrink();
+                // or some other placeholder widget.
+              }
+              return ChangeNotifierProvider<NoteProvider>(
+                create: (context) => NoteProvider(item),
+                child: NoteItemTile(
+                  item: item,
+                ),
               );
             },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          openSheetNotes(context, noteListProvider);
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: Consumer<NoteListProvider>(
-          builder: (context, noteListProvider, child) {
-        return ListView.builder(
-          itemCount: noteListProvider.items.length,
-          itemBuilder: (BuildContext context, int index) {
-            final item = noteListProvider.items[index];
-            if (!item.isValid) {
-              return const SizedBox.shrink();
-              // or some other placeholder widget.
-            }
-            return ChangeNotifierProvider<NoteProvider>(
-              create: (context) => NoteProvider(item),
-              child: NoteItemTile(
-                item: item,
-              ),
-            );
-          },
-        );
-      }),
-    );
+          );
+        }),
+      );
+    });
   }
 
-  /// Bottomsheet to take input for notes 
+  /// Bottomsheet to take input for notes
   Future<dynamic> openSheetNotes(
       BuildContext context, NoteListProvider provider) {
     return showModalBottomSheet(
@@ -238,14 +240,17 @@ class _buildNoteInputFieldState extends State<BuildNoteInputField> {
   }
 }
 
-
-
 /// Single note tile widget
-class NoteItemTile extends StatelessWidget {
+class NoteItemTile extends StatefulWidget {
   const NoteItemTile({Key? key, required this.item}) : super(key: key);
 
   final NoteModel item;
 
+  @override
+  State<NoteItemTile> createState() => _NoteItemTileState();
+}
+
+class _NoteItemTileState extends State<NoteItemTile> {
   @override
   Widget build(BuildContext context) {
     final noteProvider = Provider.of<NoteProvider>(context, listen: true);
@@ -301,8 +306,7 @@ class NoteItemTile extends StatelessWidget {
     );
   }
 
-
-/// Bottomsheet to show notes description
+  /// Bottomsheet to show notes description
   Future<dynamic> buildNoteSheet(BuildContext context, NoteProvider bloc) {
     return showModalBottomSheet(
         context: context,
@@ -345,7 +349,7 @@ class NoteItemTile extends StatelessWidget {
                         onTap: () {
                           Feedback.forTap(context);
                           bloc.updateTitle(bloc.descriptionController.text);
-
+                          setState(() {});
                           Navigator.pop(context);
                         },
                         child: Container(
