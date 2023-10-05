@@ -31,6 +31,7 @@ To run this app
 
 ## Other
 1. I have set MongoDB to be accessed from anywhere so it will run on all the devices until I turn it off.
+2. Setup: MongoDb realm and replace application id and log in using atlas with a project with flexible sync setup.
 
 
 
