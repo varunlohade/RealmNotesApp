@@ -1,7 +1,6 @@
 # noteapprelem
 
-A new Flutter project.
-
+Note app with Realm
 ## Getting Started
 To run this app
 
