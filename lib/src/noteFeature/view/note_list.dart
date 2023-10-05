@@ -135,6 +135,8 @@ class _NoteItemListState extends State<NoteItemList> {
                               subtitleController.text,
                               descriptionController.text);
 
+                          clearController();
+
                           Navigator.pop(context);
                         },
                         child: Container(
@@ -162,8 +164,15 @@ class _NoteItemListState extends State<NoteItemList> {
           );
         });
   }
+
+  void clearController() {
+    titleController.clear();
+    subtitleController.clear();
+    descriptionController.clear();
+  }
 }
 
+// ignore: must_be_immutable
 class BuildNoteInputField extends StatefulWidget {
   BuildNoteInputField(
       {super.key,
@@ -181,6 +190,7 @@ class BuildNoteInputField extends StatefulWidget {
   State<BuildNoteInputField> createState() => _buildNoteInputFieldState();
 }
 
+// ignore: camel_case_types
 class _buildNoteInputFieldState extends State<BuildNoteInputField> {
   @override
   Widget build(BuildContext context) {
