@@ -3,28 +3,30 @@
 A new Flutter project.
 
 ## Getting Started
+To run this app
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+1. Clone the Repository
+2. cd YourRepoName
+3. flutter pub get on terimal
+4. flutter run on terminal
+5. open an emulator and start the app
+6. To add a note click on the floating action button in the bottom right corner
+7. To delete a note, right swipe or left swipe on the note.
+8. Click on the note to edit.
+9. Click on search icon on Appbar to search
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 
-## Assets
+## Build with
+1. Flutter
+2. Dart
+3. MongoDB realm
+4. Provider(State management)
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+## Reasons I use Provider here
+1. Simple and fast to implement
+2. Lazy loading helps save resources
+3. Readability
+4. Best suitable for a small application
 
-## Localization
 
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
