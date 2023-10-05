@@ -29,3 +29,8 @@ To run this app
 4. Best suitable for a small application
 
 
+## Other
+1. I have set MongoDB to be accessed from anywhere so it will run on all the devices until I turn it off.
+
+
+
