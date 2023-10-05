@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../settings/view/settings_view.dart';
 import '../model/note_model.dart';
 
+/// Widget to display note list
 class NoteItemList extends StatefulWidget {
   const NoteItemList({
     super.key,
@@ -85,6 +86,7 @@ class _NoteItemListState extends State<NoteItemList> {
     );
   }
 
+  /// Bottomsheet to take input for notes 
   Future<dynamic> openSheetNotes(
       BuildContext context, NoteListProvider provider) {
     return showModalBottomSheet(
@@ -172,6 +174,7 @@ class _NoteItemListState extends State<NoteItemList> {
   }
 }
 
+/// Widget to build inputField for taking input for notes
 // ignore: must_be_immutable
 class BuildNoteInputField extends StatefulWidget {
   BuildNoteInputField(
@@ -235,6 +238,9 @@ class _buildNoteInputFieldState extends State<BuildNoteInputField> {
   }
 }
 
+
+
+/// Single note tile widget
 class NoteItemTile extends StatelessWidget {
   const NoteItemTile({Key? key, required this.item}) : super(key: key);
 
@@ -295,6 +301,8 @@ class NoteItemTile extends StatelessWidget {
     );
   }
 
+
+/// Bottomsheet to show notes description
   Future<dynamic> buildNoteSheet(BuildContext context, NoteProvider bloc) {
     return showModalBottomSheet(
         context: context,

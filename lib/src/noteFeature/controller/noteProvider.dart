@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:noteapprelem/src/noteFeature/model/note_model.dart';
 import 'package:realm/realm.dart';
 
+///Note list provider to add list
 class NoteListProvider with ChangeNotifier {
   final RealmResults<NoteModel> items;
   final Realm _realm;
@@ -20,6 +21,7 @@ class NoteListProvider with ChangeNotifier {
   }
 }
 
+///Note  provider to delete and update list
 
 class NoteProvider with ChangeNotifier {
   final NoteModel item;
@@ -66,4 +68,3 @@ class NoteProvider with ChangeNotifier {
     super.dispose();
   }
 }
-
